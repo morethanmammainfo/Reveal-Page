@@ -109,8 +109,12 @@ cursor: pointer;
 transition: border-color 0.15s ease, background 0.15s ease;
 }
 
+.opt:active { transform: scale(0.995); background: #EEF0E8; border-color: var(–sage); }
+.opt.selected { border-color: var(–sage); background: #EEF0E8; }
+.opt:disabled { pointer-events: none; opacity: 0.55; }
+@media (hover: hover) {
 .opt:hover { border-color: var(–sage); background: #EEF0E8; }
-.opt:active { transform: scale(0.995); }
+}
 
 .progress-track {
 height: 3px;
@@ -325,22 +329,31 @@ function renderQuestion() {
     <div class="q-text">${q.text}</div>
     <div class="options">`;
   q.options.forEach((opt, i) => {
-    html += `<button class="opt" onclick="answer(${i})">${opt.label}</button>`;
+    html += `<button class="opt" data-idx="${i}" onclick="answer(${i}, this)">${opt.label}</button>`;
   });
   html += `</div></div>`;
   container.innerHTML = html;
 }
 
-function answer(i) {
+function answer(i, btnEl) {
+  // Lock all options immediately and show the selection clearly before moving on
+  const allOpts = document.querySelectorAll('.opt');
+  allOpts.forEach(b => b.disabled = true);
+  btnEl.classList.add('selected');
+
   const opt = questions[current].options[i];
   for (const key in opt.pts) scores[key] += opt.pts[key];
   current++;
-  if (current < questions.length) {
-    renderQuestion();
-  } else {
-    document.getElementById('progressFill').style.width = '100%';
-    setTimeout(showResult, 250);
-  }
+
+  // Pause so the selected answer is clearly seen before the next question appears
+  setTimeout(() => {
+    if (current < questions.length) {
+      renderQuestion();
+    } else {
+      document.getElementById('progressFill').style.width = '100%';
+      setTimeout(showResult, 300);
+    }
+  }, 450);
 }
 
 function showResult() {
