@@ -1,11 +1,367 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=reveal.pdf">
-  <title>More Than Mamma</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Season — The First 6 Weeks</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600&display=swap');
+
+:root {
+–sand: #F2EBE1;
+–sand-deep: #E8DFD0;
+–clay: #8B5E4A;
+–sage: #8B9A7C;
+–sage-deep: #6E7D60;
+–ink: #2B2620;
+–rose: #C98B7A;
+–line: rgba(43,38,32,0.12);
+}
+
+- { box-sizing: border-box; }
+
+body {
+margin: 0;
+background: var(–sand);
+color: var(–ink);
+font-family: ‘Karla’, sans-serif;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+line-height: 1.5;
+}
+
+.card {
+width: 100%;
+max-width: 520px;
+background: #FFFEFB;
+border-radius: 4px;
+box-shadow: 0 1px 2px rgba(43,38,32,0.06), 0 12px 40px rgba(43,38,32,0.08);
+overflow: hidden;
+border: 1px solid var(–line);
+}
+
+.card-inner { padding: 40px 32px; }
+@media (min-width: 560px) { .card-inner { padding: 56px 48px; } }
+
+.eyebrow {
+font-size: 12px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–sage-deep);
+font-weight: 600;
+margin-bottom: 8px;
+}
+
+h1 {
+font-family: ‘Lora’, serif;
+font-weight: 600;
+font-size: 26px;
+margin: 0 0 6px;
+line-height: 1.25;
+}
+
+.sub {
+font-size: 14.5px;
+color: rgba(43,38,32,0.65);
+margin: 0 0 32px;
+}
+
+/* Quiz */
+.q { display: none; }
+.q.active { display: block; animation: fadeUp 0.35s ease both; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(6px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.q-count {
+font-size: 12px;
+color: rgba(43,38,32,0.5);
+margin-bottom: 10px;
+letter-spacing: 0.02em;
+}
+
+.q-text {
+font-family: ‘Lora’, serif;
+font-size: 19px;
+font-weight: 500;
+margin: 0 0 20px;
+line-height: 1.4;
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.opt {
+text-align: left;
+padding: 14px 16px;
+border: 1px solid var(–line);
+background: var(–sand);
+border-radius: 3px;
+font-family: ‘Karla’, sans-serif;
+font-size: 15px;
+color: var(–ink);
+cursor: pointer;
+transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.opt:hover { border-color: var(–sage); background: #EEF0E8; }
+.opt:active { transform: scale(0.995); }
+
+.progress-track {
+height: 3px;
+background: var(–line);
+border-radius: 2px;
+margin-bottom: 28px;
+overflow: hidden;
+}
+.progress-fill {
+height: 100%;
+background: var(–sage);
+width: 0%;
+transition: width 0.35s ease;
+}
+
+/* Result */
+.result { display: none; text-align: center; }
+.result.active { display: block; animation: fadeUp 0.5s ease both; }
+
+.season-mark {
+width: 56px; height: 56px;
+margin: 0 auto 20px;
+border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+background: var(–sand-deep);
+}
+.season-mark svg { width: 26px; height: 26px; }
+
+.result .eyebrow { text-align: center; }
+.result h1 { text-align: center; font-size: 28px; }
+
+.result-body {
+font-size: 15.5px;
+color: rgba(43,38,32,0.78);
+margin: 18px 0 28px;
+text-align: left;
+}
+
+.result-body p { margin: 0 0 14px; }
+.result-body p:last-child { margin-bottom: 0; }
+
+.divider {
+height: 1px;
+background: var(–line);
+margin: 28px 0;
+}
+
+.gentle-note {
+font-size: 13px;
+color: rgba(43,38,32,0.55);
+text-align: left;
+background: var(–sand);
+border-left: 2px solid var(–rose);
+padding: 12px 16px;
+border-radius: 0 3px 3px 0;
+margin-bottom: 28px;
+}
+
+.restart {
+display: inline-block;
+font-size: 13px;
+color: var(–sage-deep);
+text-decoration: none;
+border-bottom: 1px solid transparent;
+cursor: pointer;
+background: none;
+border-top: none; border-left: none; border-right: none;
+font-family: ‘Karla’, sans-serif;
+padding: 0;
+}
+.restart:hover { border-bottom-color: var(–sage-deep); }
+
+footer {
+text-align: center;
+font-size: 11.5px;
+color: rgba(43,38,32,0.4);
+margin-top: 22px;
+}
+</style>
+
 </head>
 <body>
-  <p>Opening your reveal...</p>
+
+<div>
+  <div class="card">
+    <div class="card-inner">
+
+```
+  <!-- INTRO -->
+  <div id="intro" class="q active">
+    <div class="eyebrow">The First 6 Weeks</div>
+    <h1>Where are you, right now?</h1>
+    <p class="sub">Five quick questions. No right answers — just a moment to check in with yourself before you close this tab.</p>
+    <button class="opt" onclick="startQuiz()" style="text-align:center; border-color:var(--sage); font-weight:600;">Begin →</button>
+  </div>
+
+  <!-- QUESTIONS injected here -->
+  <div id="quiz-wrap" style="display:none;">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div id="questions"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" class="result">
+    <div class="season-mark" id="seasonIcon"></div>
+    <div class="eyebrow">Your season is</div>
+    <h1 id="seasonTitle"></h1>
+    <div class="result-body" id="seasonBody"></div>
+    <div class="gentle-note" id="gentleNote"></div>
+    <button class="restart" onclick="restart()">↺ Take it again another day</button>
+  </div>
+
+</div>
+```
+
+  </div>
+  <footer>This is a gentle reflection, not a medical or psychological assessment.</footer>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "How does your body feel most days right now?",
+    options: [
+      { label: "Tender, and I'm still moving carefully", pts: {rebuilding: 2, softening: 0, steadying: 0, rising: 0} },
+      { label: "Better than last week, but not quite mine yet", pts: {rebuilding: 0, softening: 2, steadying: 0, rising: 0} },
+      { label: "Mostly steady, with occasional tired days", pts: {rebuilding: 0, softening: 0, steadying: 2, rising: 0} },
+      { label: "Genuinely strong again", pts: {rebuilding: 0, softening: 0, steadying: 0, rising: 2} },
+    ]
+  },
+  {
+    text: "When you think about your emotions lately, what's true?",
+    options: [
+      { label: "They come in waves I don't always see coming", pts: {rebuilding: 2, softening: 0, steadying: 0, rising: 0} },
+      { label: "I'm finding moments of calm between the hard ones", pts: {rebuilding: 0, softening: 2, steadying: 0, rising: 0} },
+      { label: "I feel mostly like myself, with good and hard days", pts: {rebuilding: 0, softening: 0, steadying: 2, rising: 0} },
+      { label: "I feel settled and clear most of the time", pts: {rebuilding: 0, softening: 0, steadying: 0, rising: 2} },
+    ]
+  },
+  {
+    text: "How's sleep treating you?",
+    options: [
+      { label: "Fragmented — I'm running on very little", pts: {rebuilding: 2, softening: 0, steadying: 0, rising: 0} },
+      { label: "Improving, but still unpredictable", pts: {rebuilding: 0, softening: 2, steadying: 0, rising: 0} },
+      { label: "Decent stretches most nights now", pts: {rebuilding: 0, softening: 0, steadying: 2, rising: 0} },
+      { label: "I'm finally getting real rest", pts: {rebuilding: 0, softening: 0, steadying: 0, rising: 2} },
+    ]
+  },
+  {
+    text: "What do you need most this week?",
+    options: [
+      { label: "Permission to slow down further", pts: {rebuilding: 2, softening: 0, steadying: 0, rising: 0} },
+      { label: "A little more support so I can breathe", pts: {rebuilding: 0, softening: 2, steadying: 0, rising: 0} },
+      { label: "To trust that I'm doing okay", pts: {rebuilding: 0, softening: 0, steadying: 2, rising: 0} },
+      { label: "Something for myself, beyond just surviving", pts: {rebuilding: 0, softening: 0, steadying: 0, rising: 2} },
+    ]
+  },
+  {
+    text: "If today had a color, what would it be?",
+    options: [
+      { label: "A quiet, muted grey", pts: {rebuilding: 2, softening: 0, steadying: 0, rising: 0} },
+      { label: "A soft, warming rose", pts: {rebuilding: 0, softening: 2, steadying: 0, rising: 0} },
+      { label: "A steady, grounded green", pts: {rebuilding: 0, softening: 0, steadying: 2, rising: 0} },
+      { label: "A bright, open gold", pts: {rebuilding: 0, softening: 0, steadying: 0, rising: 2} },
+    ]
+  }
+];
+
+const seasons = {
+  rebuilding: {
+    title: "The Rebuilding Season",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#8B5E4A" stroke-width="1.6"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/></svg>`,
+    body: `<p>You're in the part no one takes photos of — the quiet, unglamorous work of putting yourself back together, one day at a time.</p><p>This isn't a setback. It's the actual work. Slow is allowed here.</p>`,
+    note: "If most days feel heavy, not just tired, please talk to your doctor. You deserve support, not just tracking."
+  },
+  softening: {
+    title: "The Softening Season",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#C98B7A" stroke-width="1.6"><path d="M12 21c-4-3-7-6.5-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 3.5-3 7-7 10z" stroke-linejoin="round"/></svg>`,
+    body: `<p>Something is easing. You're not fully through it, but you can feel the ground again on some days — and that matters.</p><p>Keep going gently. You don't have to rush the rest of the way.</p>`,
+    note: "If most days feel heavy, not just tired, please talk to your doctor. You deserve support, not just tracking."
+  },
+  steadying: {
+    title: "The Steadying Season",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#6E7D60" stroke-width="1.6"><path d="M4 15l4-4 4 3 4-6 4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    body: `<p>You're finding your footing. Most days feel like yours again, even with the hard ones mixed in.</p><p>This is real progress — let yourself notice it.</p>`,
+    note: "If most days feel heavy, not just tired, please talk to your doctor. You deserve support, not just tracking."
+  },
+  rising: {
+    title: "The Rising Season",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#8B9A7C" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1" stroke-linecap="round"/></svg>`,
+    body: `<p>You've come through something enormous, and it shows. There's energy here, and clarity, and something that looks a lot like yourself again.</p><p>However you got here — it counts.</p><p style="font-size:13.5px; color:rgba(43,38,32,0.55); margin-top:18px;">If you're finding your energy again, some women in this season start thinking about movement — gently, on their own time. <a href="#" style="color:var(--sage-deep); border-bottom:1px solid var(--sage-deep); text-decoration:none;">Return to Movement</a> was built for exactly that.</p>`,
+    note: "Feeling strong doesn't mean you have to do everything at once. Keep protecting your rest."
+  }
+};
+
+let current = 0;
+const scores = {rebuilding: 0, softening: 0, steadying: 0, rising: 0};
+
+function startQuiz() {
+  document.getElementById('intro').classList.remove('active');
+  document.getElementById('quiz-wrap').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const container = document.getElementById('questions');
+  const q = questions[current];
+  document.getElementById('progressFill').style.width = ((current) / questions.length * 100) + '%';
+
+  let html = `<div class="q active">
+    <div class="q-count">Question ${current + 1} of ${questions.length}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="opt" onclick="answer(${i})">${opt.label}</button>`;
+  });
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+function answer(i) {
+  const opt = questions[current].options[i];
+  for (const key in opt.pts) scores[key] += opt.pts[key];
+  current++;
+  if (current < questions.length) {
+    renderQuestion();
+  } else {
+    document.getElementById('progressFill').style.width = '100%';
+    setTimeout(showResult, 250);
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-wrap').style.display = 'none';
+  let top = 'rebuilding', max = -1;
+  for (const key in scores) { if (scores[key] > max) { max = scores[key]; top = key; } }
+  const s = seasons[top];
+  document.getElementById('seasonIcon').innerHTML = s.icon;
+  document.getElementById('seasonTitle').innerText = s.title;
+  document.getElementById('seasonBody').innerHTML = s.body;
+  document.getElementById('gentleNote').innerText = s.note;
+  document.getElementById('result').classList.add('active');
+}
+
+function restart() {
+  current = 0;
+  for (const key in scores) scores[key] = 0;
+  document.getElementById('result').classList.remove('active');
+  document.getElementById('intro').classList.add('active');
+}
+</script>
+
 </body>
 </html>
